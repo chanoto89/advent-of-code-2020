@@ -1,4 +1,4 @@
-package inpututils
+package inputreader
 
 import (
 	"fmt"
