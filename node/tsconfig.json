@@ -20,5 +20,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true
   },
+  "ignore": ["go/"],
   "types": ["typePatches"]
 }
