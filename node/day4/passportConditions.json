@@ -1,0 +1,44 @@
+{
+  "passportConditions": {
+    "byr:": {
+      "type": "range",
+      "max": 2002,
+      "min": 1920
+    },
+    "iyr:":  {
+      "type": "range",
+      "max": 2020,
+      "min": 2010
+    },
+    "eyr:": {
+      "type": "range",
+      "max": 2030,
+      "min": 2020
+    },
+    "hgt:": {
+      "type": "conditionRange",
+      "rangeConditions": {
+        "cm": {
+          "min": 150,
+          "max": 193
+        }, 
+        "in": {
+          "min": 59,
+          "max": 76
+        }
+      }
+    },
+    "hcl:": {
+      "type": "regex",
+      "regex": "^#[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]"
+    },
+    "ecl:": {
+      "type": "set",
+      "options": ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+    },
+    "pid:": {
+      "type": "number",
+      "digits": 9
+    }
+  }
+}
