@@ -2,29 +2,8 @@ import InputReader from '../utils/InputReader';
 
 const calculateYesPerGroup = (input: string[]): number => {
   return input.reduce((prev, curr) => {
-    curr = Array.from(new Set(curr.replace(/\n/g, '').split(''))).toString();
-    return prev + (curr.match(new RegExp('[a-z]', 'g')) || []).length;
-  }, 0);
-};
-
-const calculateUniqueYesAnswers = (input: string[]): number => {
-  return input.reduce((prev, group) => {
-    const members = group.split('\n');
-    if (members.length > 1) {
-      let matchingAnswers = members[0];
-      for (let i = 1; i < members.length; i++) {
-        let memberAnswer = members[i];
-        memberAnswer = memberAnswer.split('').join(',');
-        matchingAnswers = (matchingAnswers.match(new RegExp(`[${memberAnswer}]`, 'g')) || []).toString();
-        if (!matchingAnswers.length) {
-          break;
-        }
-      }
-      prev += matchingAnswers.replace(/[,]/g, '').length;
-    } else {
-      prev += group.length;
-    }
-    return prev;
+    const distinct = Array.from(new Set(curr.replace(/\n/g, '').split(''))).join('');
+    return prev + distinct.length;
   }, 0);
 };
 
@@ -39,8 +18,7 @@ const calculateUniqueYesAnswersV2 = (input: string[]): number => {
 };
 
 const stringIntersection = (oldValue: string, newValue: string) => {
-  const answerRegex = newValue.split('').join(',');
-  return (oldValue.match(new RegExp(`[${answerRegex}]`, 'g')) || []).toString().replace(/[,]/g, '');
+  return (oldValue.match(new RegExp(`[${newValue}]`, 'g')) || []).join('');
 };
 
 
