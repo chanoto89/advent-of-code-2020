@@ -56,27 +56,25 @@ const runSteps = (accumulatorSteps: AccumulatorStep[]): ProgramResult => {
 };
 
 const getPart2Accumulator = (accumulatorSteps: AccumulatorStep[]): ProgramResult => {
-  let currentIndex = -1;
   let result: ProgramResult = { accumulator: 0, lastIndex: 0 };
   
-  while (true) {
-    const stepCopy = accumulatorSteps.map(x => Object.assign({}, x));
-    const indexToBeupdated = stepCopy.findIndex((step, index) => index > currentIndex &&
-      (step.instruction === 'jmp'|| (step.instruction === 'nop' && step.operation !== 0)));
-    
-    currentIndex = indexToBeupdated;
-    if (indexToBeupdated === -1) {
-      return { accumulator: 0, lastIndex: 0 };
+  for (let i = 0; i < accumulatorSteps.length; i++) {
+    const step = accumulatorSteps[i];
+    const { instruction } = step;
+    if (!['jmp', 'nop'].includes(instruction)) {
+      continue;
     }
 
-    const itemToBeUpdated = stepCopy[indexToBeupdated];
-    itemToBeUpdated.instruction = itemToBeUpdated.instruction === 'jmp' ? 'nop' : 'jmp';
+    const stepCopy = accumulatorSteps.map(x => Object.assign({}, x));
+    stepCopy[i].instruction = instruction === 'jmp' ? 'nop' : 'jmp';
 
     result = runSteps(stepCopy);
     if (result.lastIndex === stepCopy.length) {
       return result;
     }
   }
+
+  return result;
 };
 
 const run = () => {
